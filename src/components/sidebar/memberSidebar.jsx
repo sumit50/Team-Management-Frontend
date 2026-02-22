@@ -1,5 +1,5 @@
-import {NavLink} from "react-router-dom";
-import {memo, useCallback} from "react";
+import React, {memo, useCallback} from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import LogoutButton from "../common/logoutButton";
 
 const linkBase = "block px-4 py-2 rounded-md transition-colors";
@@ -8,13 +8,12 @@ const inactiveLink = "text-gray-300 hover:bg-gray-800 hover:text-white";
 
 // Sidebar links config (single source of truth)
 const NAV_LINKS = [
-  {to: "/admin", label: "Dashboard", end: true},
-  {to: "/admin/users", label: "Users"},
-  {to: "/admin/teams", label: "Team Leaders"},
-  {to: "/admin/assign-team-leader", label: "Assign Team Leader"},
+  {to: "/member/team", label: "Dashboard", end: true},
+  {to: "/member/profile", label: "Profile"},
+  {to: "/member/team", label: "Tasks"},
 ];
 
-const AdminSidebar = () => {
+const MemberSidebar = () => {
   // memoized class resolver (not recreated every render)
   const navClass = useCallback(
     ({isActive}) => `${linkBase} ${isActive ? activeLink : inactiveLink}`,
@@ -23,9 +22,8 @@ const AdminSidebar = () => {
 
   return (
     <aside className="w-64 min-h-screen bg-black p-4 flex flex-col">
-    
-      
-      <h1 className="text-xl font-bold  mb-8">Admin Panel</h1>
+      {/* Logo */}
+      <h1 className="text-xl font-bold text-white mb-8">Member Panel</h1>
 
       {/* Navigation */}
       <nav className="flex flex-col gap-2 flex-1">
@@ -44,4 +42,4 @@ const AdminSidebar = () => {
   );
 };
 
-export default memo(AdminSidebar);
+export default memo(MemberSidebar);

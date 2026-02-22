@@ -1,9 +1,10 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import {loginApi} from "../../services/authApi";
-import {setAuth} from "../utils/auth";
+import { loginApi } from "../../services/authApi";
+import { setAuth } from "../utils/auth";
+import LoadingButton from "../../components/common/LoadingButton";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -13,19 +14,46 @@ export const LoginPage = () => {
     password: "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  // const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
+
+  // useEffect(() => {
+  //   // Check if reCAPTCHA script is loaded
+  //   const checkRecaptcha = () => {
+  //     if (window.grecaptcha) {
+  //       setRecaptchaLoaded(true);
+  //       // Render reCAPTCHA
+  //       window.grecaptcha.render('recaptcha-container', {
+  //         'sitekey': '6LdycUwsAAAAAKD2gK4Sw8uxYKEnBTXn_IFbDBU_'
+  //       });
+  //     } else {
+  //       setTimeout(checkRecaptcha, 100);
+  //     }
+  //   };
+
+  //   checkRecaptcha();
+  // }, []);
+
   const handleChange = (e) => {
+    const { name, value } = e.target
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Prevent multiple submissions
+    if (isLoading) return;
+
+    setIsLoading(true);
+
     try {
       const res = await loginApi(form);
-      const {token, user} = res.data;
+      const { token, user } = res.data;
 
       // save auth
       setAuth(token, user);
@@ -33,26 +61,34 @@ export const LoginPage = () => {
       // role based redirect
       if (user.role === "admin") {
         navigate("/admin");
-      } else if (user.role === "lead") {
-        navigate("/lead/team");
+        toast.success("Login successful");
+      } else if (user.role === "teamLeader") {
+        navigate("/lead/my-team");
+        toast.success("Login successful");
       } else {
-        navigate("/member/team");
+        toast.error("Unauthorized access");
+        return;
       }
-
-      toast.success("Login successful");
     } catch (err) {
       toast.error(err.response?.data?.message || "Login failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-        {/* Heading */}
-        <h2 className="text-2xl font-bold text-center text-gray-800"></h2>
-        <p className="text-center text-gray-500 mt-1">Team Management System</p>
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img
+            src="/Logo.png"
+            alt="Logo"
+            className="h-48 w-auto"
+          />
+        </div>
 
-        {/* Form */}
+
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
             <label className="block text-sm text-gray-600 mb-1">Email</label>
@@ -80,11 +116,18 @@ export const LoginPage = () => {
             />
           </div>
 
-          <button
+          {/* <div className="flex justify-center">
+            <div id="recaptcha-container"></div>
+          </div> */}
+
+          <LoadingButton
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition">
+            isLoading={isLoading}
+            loadingText="Logging in..."
+            className="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition"
+          >
             Login
-          </button>
+          </LoadingButton>
         </form>
 
         {/* Footer */}

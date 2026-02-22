@@ -1,7 +1,7 @@
 import api from "../app/api";
 // GET ALL TEAMS
-export const getAllTeamsApi = () => {
-  return api.get("/admin/teams");
+export const getAllTeamsApi = (page = 1, limit = 10) => {
+  return api.get(`/team/teams?page=${page}&limit=${limit}`);
 };
 
 // CREATE TEAM
@@ -10,9 +10,18 @@ export const createTeamApi = (data) => {
 };
 
 // GET ALL USERS
-export const getAllUsersApi = () => {
-  return api.get("/admin/users");
+export const getAllUsersApi = (page = 1, limit = 10, role = null, search = null) => {
+  let url = `/user/users?page=${page}&limit=${limit}`;
+  if (role) url += `&role=${role}`;
+  if (search) url += `&search=${search}`;
+  return api.get(url);
 };
+// Usually the best approach
+export const registerUserApi = (data) => {
+  return api.post("/user/register", data);
+};
+
+
 
 // CREATE TEAM LEADER
 export const createTeamLeaderApi = (data) => {
@@ -20,8 +29,8 @@ export const createTeamLeaderApi = (data) => {
 };
 
 // GET ALL TEAM LEADERS
-export const getAllTeamLeadersApi = () => {
-  return api.get("/admin/team-leaders");
+export const getAllTeamLeadersApi = (page = 1, limit = 10) => {
+  return api.get(`/admin/team-leaders?page=${page}&limit=${limit}`);
 };
 
 // UPDATE TEAM LEADER

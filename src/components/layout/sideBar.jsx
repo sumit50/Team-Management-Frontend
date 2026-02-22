@@ -9,6 +9,15 @@ export const Sidebar = () => {
 
   return (
     <aside className="w-64 bg-white shadow-lg min-h-screen p-4">
+      {/* Logo */}
+      <div className="flex justify-center mb-6">
+        <img 
+          src="/Logo.png" 
+          alt="Logo"
+          className="h-12 w-auto"
+        />
+      </div>
+
       <h2 className="text-xl font-bold text-indigo-600 mb-8">
         Team Admin
       </h2>
