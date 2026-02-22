@@ -1,16 +1,50 @@
-# React + Vite
+Team Management Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A role-based Team & User Management System frontend built with React + Vite, designed to mirror real company hierarchy where Admins manage structure and Team Leaders manage their teams.
 
-Currently, two official plugins are available:
+This project focuses on clean architecture, role separation, and scalable UI structure.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🚀 Features
+👑 Admin Panel
 
-## React Compiler
+Create users and team leaders
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Manage teams
 
-## Expanding the ESLint configuration
+Assign team leaders to teams
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+View all users and teams
+
+🧑‍💼 Team Leader Panel
+
+Create users within their assigned team
+
+Assign job roles (Developer, Designer, etc.)
+
+View only their team members
+
+👨‍💻 User
+
+Access limited to assigned permissions
+
+Belongs to a single team
+
+Has a job role (Developer / Designer / QA)
+
+🧠 Role Design (Important Concept)
+
+This project separates System Roles and Job Roles:
+
+🔐 System Roles (Authorization)
+
+Admin
+
+Team Leader
+
+User
+
+🛠️ Job Roles (Function)
+
+Developer
+
+Designer
