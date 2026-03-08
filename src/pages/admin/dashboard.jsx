@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 import CreateTeamButton from "../../components/common/createTeambutton";
 import Breadcrumbs from "../../components/common/Breadcrumbs";
 import RefreshButton from "../../components/common/refreshButton";
-import { UserGroupIcon } from "@heroicons/react/24/solid";
+import {UserGroupIcon} from "@heroicons/react/24/solid";
 
 // import Quote from "../../components/common/Quote";
 import AssignTeamModal from "../../components/common/assignModalButton";
@@ -13,7 +13,6 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     // Simulate loading time
     setTimeout(() => setLoading(false), 1000);
@@ -22,10 +21,6 @@ const Dashboard = () => {
   const handleCardNavigation = (path) => {
     navigate(path);
   };
-
-
-
-
 
   return (
     <div className="p-6">
@@ -45,7 +40,6 @@ const Dashboard = () => {
           <RefreshButton />
           {/* <Quote /> */}
         </div>
-
       </div>
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -163,11 +157,10 @@ const Dashboard = () => {
             <h2 className="text-xl font-semibold text-slate-800 mb-6">
               Quick Actions
             </h2>
-            <div className="flex flex-wrap gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <CreateTeamButton
                 customTrigger={
-                  <button
-                    className="btn-primary text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2">
+                  <button className="btn-primary text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 w-full">
                     <svg
                       className="w-5 h-5"
                       fill="none"
@@ -185,21 +178,18 @@ const Dashboard = () => {
                 }
               />
 
-
-
               <AssignTeamModal
                 trigger={
-                  <button
-                    className="btn-secondary text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2"
-                  >
-                    <UserGroupIcon className="size-5 text-amber-500" />
+                  <button className="btn-secondary text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 w-full">
+                    <UserGroupIcon className="w-5 h-5 text-amber-500" />
                     <span>Assign Leader</span>
                   </button>
                 }
               />
+
               <button
                 onClick={() => navigate("/admin/teams")}
-                className="bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 transition-colors">
+                className="bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 transition-colors w-full">
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -214,9 +204,10 @@ const Dashboard = () => {
                 </svg>
                 <span>Team Leaders</span>
               </button>
+
               <button
                 onClick={() => navigate("/admin/users")}
-                className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 transition-colors">
+                className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 transition-colors w-full">
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -242,8 +233,6 @@ const Dashboard = () => {
           </>
         )}
       </div>
-
-
     </div>
   );
 };
