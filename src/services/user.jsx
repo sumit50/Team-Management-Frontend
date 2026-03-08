@@ -1,6 +1,5 @@
-import api from "../app/api"
+import api from "../app/api";
 
 export const userApi = () => {
-    return api.get("/users")
-}
-
+  return api.get("/users");
+};

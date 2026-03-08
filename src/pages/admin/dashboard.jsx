@@ -3,12 +3,16 @@ import { useNavigate } from "react-router-dom";
 import CreateTeamButton from "../../components/common/createTeambutton";
 import Breadcrumbs from "../../components/common/Breadcrumbs";
 import RefreshButton from "../../components/common/refreshButton";
+import { UserGroupIcon } from "@heroicons/react/24/solid";
 
-import Quote from "../../components/common/Quote";
+// import Quote from "../../components/common/Quote";
+import AssignTeamModal from "../../components/common/assignModalButton";
+import AssignTeamButton from "../../components/common/assignModalButton";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     // Simulate loading time
@@ -18,6 +22,10 @@ const Dashboard = () => {
   const handleCardNavigation = (path) => {
     navigate(path);
   };
+
+
+
+
 
   return (
     <div className="p-6">
@@ -32,17 +40,19 @@ const Dashboard = () => {
             Welcome to the Team Management System
           </p>
         </div>
+
         <div className="flex gap-2">
           <RefreshButton />
-          <Quote />
+          {/* <Quote /> */}
         </div>
+
       </div>
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {loading ? (
           // Skeleton Loading for Stats
-          [...Array(3)].map((_, index) => (
-            <div key={index} className="card p-6 rounded-lg">
+          [...Array(3)].map(() => (
+            <div className="card p-6 rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="h-4 bg-slate-200 rounded w-20 mb-2 skeleton"></div>
@@ -177,24 +187,16 @@ const Dashboard = () => {
 
 
 
-
-              <button
-                onClick={() => navigate("/admin/assign-team-leader")}
-                className="btn-secondary text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                  />
-                </svg>
-                <span>Assign Leader</span>
-              </button>
+              <AssignTeamModal
+                trigger={
+                  <button
+                    className="btn-secondary text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2"
+                  >
+                    <UserGroupIcon className="size-5 text-amber-500" />
+                    <span>Assign Leader</span>
+                  </button>
+                }
+              />
               <button
                 onClick={() => navigate("/admin/teams")}
                 className="bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 transition-colors">
